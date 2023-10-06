@@ -5,14 +5,17 @@ import { categories } from "../constants/categories";
 
 import "../index.css"
 import { ProductsContext } from "../context/productsContext";
+import { Nav } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
+
 
 
 const Header = () => {
   window.addEventListener("scroll", function () {
     if (this.scrollY > 50) {
-      document.querySelector("nav").classList.remove("none-nav")
+      this.document.querySelector("nav").classList.remove("none-nav")
     } else {
-      document.querySelector("nav").classList.add("none-nav")
+      this.document.querySelector("nav").classList.add("none-nav")
     }
   });
   
@@ -20,21 +23,29 @@ const Header = () => {
 
   return (
     <header>
-      <div className="container">
-        <div className="header-container">
-          <img src={navLogo} alt="" />
-          <nav className=" none-nav">
-            {
-              categories.map((el)=>(
-                <a key={el.name} href={`#${el.name}`}>{el.name}</a>
-              ))
-            }
-          </nav>
-          <button className="btn btn-danger">
-            Cart <span>{cart.length}</span>
-          </button>
+      <Nav >
+        <div className="container">
+          <div className="header-container">
+            <NavLink to="/" >
+              <img src={navLogo} alt="" />
+            </NavLink>
+            <nav className=" none-nav">
+              {
+                categories.map((el)=>(
+                  <a key={el.name} href={`#${el.name}`}>{el.name}</a>
+                ))
+              }
+            </nav>
+            <Nav.Item>
+              <NavLink to="/cart" >
+                <button className="btn btn-danger">
+                  Cart <span>{cart.length}</span>
+                </button>
+              </NavLink>  
+            </Nav.Item> 
+          </div>
         </div>
-      </div>
+      </Nav>
     </header>
   )
 }
